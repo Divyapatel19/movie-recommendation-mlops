@@ -1,0 +1,17 @@
+# Python environments and generated files
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Secrets and SSH/deployment files
+.env
+.env.*
+!.env.example
+*.pem
+65.0.178.96
+
+# Local tooling and logs
+.vscode/
+*.log
+

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMatch | Movie Recommendations</title>
+    <link rel="stylesheet"
+          href="{{url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header class="navbar">
+        <a href="/" class="brand">
+            <span class="brand-icon">▶</span>
+            <span>Cine<span class="accent">Match</span></span>
+        </a>
+        <div class="nav-label">AI MOVIE DISCOVERY</div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="eyebrow">
+                <span class="sparkle">✦</span>
+                YOUR PERSONAL MOVIE GUIDE
+            </div>
+
+            <h1>Find your next<br> <span class="gradient-text">favorite movie.</span></h1>
+
+            <p class="hero-description">
+                Tell us what you love. Our recommendation engine will
+                help you discover movies worth watching.
+            </p>
+
+            <form method="POST" action="/" class="search-form">
+                <span class="search-icon">⌕</span>
+                <input
+                    type="text"
+                    name="movie_name"
+                    placeholder="Search a movie, e.g. Titanic..."
+                    value="{{ movie_name }}"
+                    aria-label="Movie title"
+                    required
+                >
+                <button type="submit">
+                    Discover <span aria-hidden="true">→</span>
+                </button>
+            </form>
+
+            <p class="search-hint">
+                <span class="hint-dot"></span>
+                Explore similar movies powered by machine learning
+            </p>
+
+            {% if error %}
+                <div class="error-message" role="alert">
+                    <span>!</span> {{ error }}
+                </div>
+            {% endif %}
+        </section>
+
+        {% if recommendations %}
+        <section class="results-section">
+            <div class="section-heading">
+                <div>
+                    <div class="section-kicker">CURATED FOR YOU</div>
+                    <h2>Your next watchlist</h2>
+                    <p class="results-subtitle">
+                        Movies related to
+                        <strong>{{ movie_name }}</strong>
+                    </p>
+                </div>
+                <div class="results-count">
+                    {{ recommendations|length }} MOVIES
+                </div>
+            </div>
+
+            <div class="movie-grid">
+                {% for movie in recommendations %}
+                <article class="movie-card">
+                    <div class="poster-placeholder">
+                        <span class="poster-symbol">▶</span>
+                        <span class="poster-caption">CINEMATCH PICK</span>
+                        <span class="movie-number">
+                            {{ "%02d"|format(loop.index) }}
+                        </span>
+                    </div>
+
+                    <div class="movie-info">
+                        <div class="movie-topline">
+                            <span class="match-label">SIMILARITY SCORE</span>
+                            <span class="match-score">
+                                {{ "%.1f"|format(movie.similarity * 100) }}%
+                            </span>
+                        </div>
+
+                        <h3>{{ movie.title }}</h3>
+
+                        <div class="score-track">
+                            <div class="score-fill"
+                                 style="width: {{ [movie.similarity * 100, 100]|min }}%">
+                            </div>
+                        </div>
+
+                        <p class="movie-note">
+                            <span>✦</span> Selected for its similar content
+                        </p>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+
+            <div class="bottom-action">
+                <span>Want to explore another film?</span>
+                <a href="/" class="secondary-button">Search again ↗</a>
+            </div>
+        </section>
+        {% else %}
+        <section class="discovery-section">
+            <div class="section-heading">
+                <div>
+                    <div class="section-kicker">HOW IT WORKS</div>
+                    <h2>Your next favorite is closer.</h2>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <div class="feature-icon purple">⌕</div>
+                    <h3>Choose a movie</h3>
+                    <p>Enter a movie title you already enjoy.</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon blue">✦</div>
+                    <h3>Smart matching</h3>
+                    <p>Our TF-IDF model compares movie descriptions and content.</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon pink">▶</div>
+                    <h3>Discover more</h3>
+                    <p>Get a shortlist of five similar movies to explore.</p>
+                </article>
+            </div>
+        </section>
+        {% endif %}
+    </main>
+
+    <footer class="footer">
+        <a href="/" class="footer-brand">CineMatch</a>
+        <span>Machine Learning Movie Recommendation System</span>
+        <span class="footer-status"><span></span> LOCAL APP</span>
+    </footer>
+</body>
+</html>
