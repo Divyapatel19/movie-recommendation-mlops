@@ -143,56 +143,6 @@ To stop and remove the container:
 docker stop movie-recommendation
 docker rm movie-recommendation
 ```
-
-## Add This Project to GitHub
-
-### 1. Create the GitHub repository
-
-Go to [https://github.com/new](https://github.com/new), create a repository named `movie-recommendation-mlops`, and leave **Add a README file** unchecked because this project already has one.
-
-### 2. Configure Git in PowerShell
-
-Run these commands from the project directory:
-
-```powershell
-cd C:\Users\DELL\movie-recommendation-mlops
-git init
-git branch -M main
-git add .
-git status
-```
-
-Before committing, confirm that `Project.pem`, `venv/`, and `65.0.178.96` are not listed. `Project.pem` is a private key and must never be uploaded.
-
-### 3. Commit and connect the repository
-
-```powershell
-git commit -m "Add CineMatch movie recommendation system"
-git remote add origin https://github.com/YOUR_USERNAME/movie-recommendation-mlops.git
-```
-
-Replace `YOUR_USERNAME` with your actual GitHub username. For example:
-
-```powershell
-git remote set-url origin https://github.com/Divyapatel19/movie-recommendation-mlops.git
-```
-
-Use `git remote set-url` instead of `git remote add` if an `origin` remote already exists.
-
-### 4. Push to GitHub
-
-```powershell
-git push -u origin main
-```
-
-Complete GitHub authentication in the browser if prompted.
-
-## Security
-
-- Never commit `Project.pem`, API keys, passwords, or `.env` files.
-- The project `.gitignore` excludes private keys, virtual environments, cache files, and local deployment metadata.
-- If a private key has already been pushed to GitHub, revoke or replace it immediately.
-
 ## License
 
 Add a license before distributing this project publicly. The TMDB dataset may have its own usage and attribution requirements; review the dataset's terms before redistribution.
